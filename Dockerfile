@@ -32,4 +32,4 @@ WORKDIR /usr/src/jira-integration
 COPY --from=generator /jci/dist/codefresh dist
 COPY --from=generator /jci/node_modules ./node_modules
 
-CMD ["node", "dist/index.js"]
+CMD ["node", "/usr/src/jira-integration/dist/index.js"]
