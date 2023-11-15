@@ -1,0 +1,5 @@
+#!/bin/sh
+# NOTE: Only for dockerfile
+set -e
+
+node /usr/local/jira-integration/dist/codefresh/index.js
