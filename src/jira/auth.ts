@@ -50,7 +50,7 @@ export async function getJWT(
 export async function getCloudId(jiraBaseUrl: string): Promise<string> {
   try {
     const res = await fetch(
-      `https://${jiraBaseUrl}/_edge/tenant_info`,
+      `${jiraBaseUrl}/_edge/tenant_info`,
     )
     const json: {cloudId: string} = await res.json()
 
