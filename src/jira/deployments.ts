@@ -39,12 +39,9 @@ export async function sendDeploymentInfo(
   var url = buildUrl
   var displayName = name
 
-  if (argoCD.displayName != 'Unknown') {
-    displayName = argoCD.displayName
-  }
-
   if (argoCD.url != 'Unknown') {
     url = argoCD.url
+    displayName = argoCD.displayName
   }
 
   if (!issueKeys.length) {

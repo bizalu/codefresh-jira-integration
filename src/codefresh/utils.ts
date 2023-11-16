@@ -38,13 +38,9 @@ export function  getArgoCD(): {
   const deployUrl =
     process.env.argo_cd_sync_CF_OUTPUT_URL ||
     defaultDeploy
-  const deployName =
-    "" + deployUrl.split('/')[6] + "/" + deployUrl.split('/')[7] ||
-    defaultDeploy
+  const deployName = "" + deployUrl.split('/')[6] + "/" + deployUrl.split('/')[7] ||
 
-  if (deployUrl != defaultDeploy) {
-    getLogger().debug(`Deployment ${deployName} with URL ${deployUrl}`)
-  }
+  getLogger().debug(`Deployment ${deployName} with URL ${deployUrl}`)
 
   return {
     displayName: deployName,
