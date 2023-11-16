@@ -9,13 +9,7 @@ export function getEnvironment(): {
   type: 'unmapped' | 'development' | 'testing' | 'staging' | 'production'
 } {
   const label =
-    // gitlab
-    process.env.CI_ENVIRONMENT_NAME ||
-    // drone
-    process.env.DRONE_DEPLOY_TO ||
     process.env.BUILD_ENVIRONMENT ||
-    // netlify
-    process.env.CONTEXT ||
     defaultEnv
 
   const type:
@@ -41,8 +35,8 @@ export function getEnvironment(): {
 export function getInputs(): IntegrationInputs {
   const logger = getLogger()
 
-  const jiraInstance = process.env.JIRA_INSTANCE as string
-  logger.info(`Connecting to Jira Instance "${jiraInstance}"...`)
+  const jiraBaseUrl = process.env.JIRA_BASE_URL as string
+  logger.info(`Connecting to Jira Base URL "${jiraBaseUrl}"...`)
 
   const clientId = process.env.JIRA_CLIENT_ID as string
   const clientSecret = process.env.JIRA_CLIENT_SECRET as string
@@ -66,7 +60,7 @@ export function getInputs(): IntegrationInputs {
   }
 
   const inputs = {
-    jiraInstance,
+    jiraBaseUrl,
     clientId,
     clientSecret,
     event,

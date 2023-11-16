@@ -28,14 +28,14 @@ type ResponseBody<T extends keyof operations> = Promise<
 export type Jira = ReturnTypeResolved<typeof createApi>
 
 export default async function createApi(options: {
-  jiraInstance: string
+  jiraBaseUrl: string
   clientId: string
   clientSecret: string
 }) {
   const logger = getLogger()
   const basePath = '/jira'
   const endpoint = 'https://api.atlassian.com'
-  const cloudId = await getCloudId(options.jiraInstance)
+  const cloudId = await getCloudId(options.jiraBaseUrl)
 
   logger.info(`Found cloudId: "${cloudId}"`)
 

@@ -43,14 +43,14 @@ export async function getJWT(
 }
 
 /**
- * @param jiraInstance
+ * @param jiraBaseUrl
  * @returns
  * @see https://developer.atlassian.com/cloud/jira/software/integrate-jsw-cloud-with-onpremises-tools/#making-api-calls
  */
-export async function getCloudId(jiraInstance: string): Promise<string> {
+export async function getCloudId(jiraBaseUrl: string): Promise<string> {
   try {
     const res = await fetch(
-      `https://${jiraInstance}.atlassian.net/_edge/tenant_info`,
+      `https://${jiraBaseUrl}/_edge/tenant_info`,
     )
     const json: {cloudId: string} = await res.json()
 
@@ -58,7 +58,7 @@ export async function getCloudId(jiraInstance: string): Promise<string> {
   } catch (err) {
     getLogger().info(
       err,
-      'Could not get cloudId, check "jiraInstance" is correct',
+      'Could not get cloudId, check "jiraBaseUrl" is correct',
     )
     throw err
   }

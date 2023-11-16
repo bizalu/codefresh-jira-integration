@@ -22,15 +22,7 @@ async function run(): Promise<void> {
 
     const common = {
       name:
-        process.env.BUILD_NAME ||
-        // azure
-        process.env.BUILD_DEFINITIONNAME ||
-        // drone
-        process.env.DRONE_STAGE_NAME ||
-        // circle ci
-        process.env.CIRCLE_JOB ||
-        // jenkins
-        process.env.JOB_NAME ||
+        process.env.CF_PIPELINE_NAME ||
         env.name,
       state,
       commit: env.commit,

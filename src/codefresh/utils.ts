@@ -17,8 +17,6 @@ export function getState(): ValidState {
   // @ts-expect-error cast type
   const state: 'success' | 'failure' | ValidState =
     process.env.BUILD_STATE ||
-    process.env.CI_JOB_STATUS ||
-    process.env.DRONE_BUILD_STATUS ||
     'successful'
 
   if (state === 'success') {
@@ -38,13 +36,7 @@ export function getState(): ValidState {
  */
 export async function getCommitMessage(): Promise<string | undefined> {
   const commitMessage =
-    process.env.COMMIT_MESSAGE ||
-    // gitlab
-    process.env.CI_COMMIT_MESSAGE ||
-    // drone
-    process.env.DRONE_COMMIT_MESSAGE ||
-    // azure
-    process.env.BUILD_SOURCEVERSIONMESSAGE ||
+    process.env.CF_COMMIT_MESSAGE ||
     undefined
 
   getLogger().debug(`CommitMessage: ${commitMessage}`)
@@ -56,7 +48,7 @@ export async function getIssueKeys(): Promise<string[]> {
   const branchName = getBranchName()
   const commitMessage = await getCommitMessage()
 
-  const fromInput = process.env.JIRA_ISSUES?.match(/(\w+)-(\d+)/g) ?? []
+  const fromInput = process.env.JIRA_ISSUES_ID
 
   const fromBranch = branchName?.match(/(\w+)-(\d+)/g) ?? []
 
