@@ -5,7 +5,7 @@ import {sendBuildInfo} from '../jira/builds'
 import {sendDeploymentInfo} from '../jira/deployments'
 import {getLogger, setLogger} from '../utils/logger'
 import {getEnvironment, getInputs} from './input'
-import {getBranchName, getIssueKeys, getState} from './utils'
+import {getBranchName, getIssueKeys, getState, getArgoCD} from './utils'
 
 async function run(): Promise<void> {
   try {
@@ -47,6 +47,7 @@ async function run(): Promise<void> {
         const deployment = await sendDeploymentInfo(jira, {
           ...common,
           environment: getEnvironment(),
+          argoCD: getArgoCD(),
         })
         logger.info('Response', deployment)
         break

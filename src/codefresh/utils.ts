@@ -4,6 +4,7 @@ import {ValidState} from '../utils/types'
 
 // Using this type as this has the most supported fields
 const env = envCi() as CodefreshEnv
+const defaultDeploy = 'Unknown'
 
 export function getBranchName(): string | undefined {
   const branchName: string = env.branch
@@ -28,6 +29,28 @@ export function getState(): ValidState {
   }
 
   return state
+}
+
+export function  getArgoCD(): {
+  displayName: string
+  url: string
+} {
+  const deployUrl =
+    process.env.argo_cd_sync_CF_OUTPUT_URL ||
+    defaultDeploy
+  const deployName =
+    "" + deployUrl.split('/')[6] + "/" + deployUrl.split('/')[7] ||
+    defaultDeploy
+
+  if (deployUrl != defaultDeploy) {
+    getLogger().debug(`Deployment ${deployName} with URL ${deployUrl}`)
+  }
+
+  return {
+    displayName: deployName,
+    url: deployUrl,
+  }
+
 }
 
 /**

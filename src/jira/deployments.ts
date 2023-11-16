@@ -15,6 +15,7 @@ export async function sendDeploymentInfo(
     pipelineId,
     buildNumber,
     environment,
+    argoCD,
   }: {
     name: string
     commit: string
@@ -27,10 +28,24 @@ export async function sendDeploymentInfo(
       displayName: string
       type: ReturnTypeResolved<typeof processEnvironmentTpe>
     }
+    argoCD: {
+        displayName: string
+        url: string
+    }
   },
 ) {
   const now = Date.now()
   const logger = getLogger()
+  var url = buildUrl
+  var displayName = name
+
+  if (argoCD.displayName != 'Unknown') {
+    displayName = argoCD.displayName
+  }
+
+  if (argoCD.url != 'Unknown') {
+    url = argoCD.url
+  }
 
   if (!issueKeys.length) {
     logger.info('No issue keys found to send "deployment" event for')
@@ -46,8 +61,8 @@ export async function sendDeploymentInfo(
           schemaVersion: '1.0',
           pipeline: {
             id: pipelineId,
-            url: buildUrl,
-            displayName: name,
+            url: url,
+            displayName: displayName,
           },
           deploymentSequenceNumber: buildNumber,
           environment: {
@@ -55,9 +70,9 @@ export async function sendDeploymentInfo(
             id: `${environment.displayName.toLowerCase()}-${pipelineId}`,
           },
           updateSequenceNumber: now,
-          displayName: name,
-          description: `${name} triggered for commit ${commit}`,
-          url: buildUrl,
+          displayName: displayName,
+          description: `${displayName} triggered for commit ${commit}`,
+          url: url,
           state,
           lastUpdated: new Date(now).toISOString(),
           issueKeys,

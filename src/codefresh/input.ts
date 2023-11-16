@@ -48,9 +48,11 @@ export function getInputs(): IntegrationInputs {
 
   const environment = getEnvironment()
 
-  logger.info(
-    `Environment is "${environment.displayName}" (${environment.type})...`,
-  )
+  if (environment.displayName !== defaultEnv) {
+    logger.info(
+        `Environment is "${environment.displayName}" (${environment.type})...`,
+    )
+  }
 
   // If we have env then it probably is a deployment rather than a build
   if (environment.displayName !== defaultEnv) {
