@@ -3,8 +3,8 @@ import {IntegrationInputs} from './types'
 const validEvents = ['build', 'deployment']
 
 export function validateInputs(inputs: IntegrationInputs): void {
-  if (!inputs.jiraInstance) {
-    throw new Error(`Missing input: JIRA_INSTANCE`)
+  if (!inputs.jiraBaseUrl) {
+    throw new Error(`Missing input: JIRA_BASE_URL`)
   }
 
   if (!inputs.clientId || !inputs.clientSecret) {

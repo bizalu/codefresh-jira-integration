@@ -6,7 +6,7 @@ export type ReturnTypeResolved<T extends (...args: any) => any> = Unpromise<
 >
 
 export interface IntegrationInputs {
-  jiraInstance: string
+  jiraBaseUrl: string
   clientId: string
   clientSecret: string
   event: 'build' | 'deployment'
