@@ -58,8 +58,8 @@ export async function sendDeploymentInfo(
           schemaVersion: '1.0',
           pipeline: {
             id: pipelineId,
-            url: url,
-            displayName: displayName,
+            url: buildUrl,
+            displayName: name,
           },
           deploymentSequenceNumber: buildNumber,
           environment: {
