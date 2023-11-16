@@ -28,7 +28,9 @@ async function run(): Promise<void> {
       commit: env.commit,
       issueKeys,
       buildUrl: env.buildUrl,
-      buildNumber: Number(env.build),
+      buildNumber:
+        Number(process.env.CF_BUILD_NUMBER) ||
+        Number(env.build),
       pipelineId: `${env.service}-${env.slug}`,
     }
 
